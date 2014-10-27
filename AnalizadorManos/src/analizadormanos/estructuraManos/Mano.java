@@ -32,6 +32,7 @@ public class Mano {
     public String verbose = "No se ha calculado la jugada";
 
     public Mano(Carta[] cartas) {
+        this.checkMano();
         if (cartas.length == 5) {
             this.cartas = cartas;
             for (int i = 0; i < cartas.length; i++) {
@@ -236,5 +237,9 @@ public class Mano {
             }
         }
 
+    }
+
+    private void checkMano() {
+        
     }
 }
