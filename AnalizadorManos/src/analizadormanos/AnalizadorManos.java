@@ -31,8 +31,8 @@ public class AnalizadorManos {
         Carta rey = new Carta(Numeros.rey,Palos.corazones); //rey de corazones
         System.out.println(as.esMejorCarta(rey));
         Carta[] c = new Carta[]{
-            new Carta("5h"),new Carta("6h"),new Carta("7h"),
-            new Carta("8h"),new Carta("9h")
+            new Carta("Ah"),new Carta("Ah"),new Carta("Ah"),
+            new Carta("Ah"),new Carta("Ah")
         };
         Mano m = new Mano(c); 
         System.out.println(m.toString());
