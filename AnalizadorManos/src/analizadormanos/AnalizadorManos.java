@@ -31,12 +31,13 @@ public class AnalizadorManos {
         Carta rey = new Carta(Numeros.rey,Palos.corazones); //rey de corazones
         System.out.println(as.esMejorCarta(rey));
         Carta[] c = new Carta[]{
-            new Carta("As"),new Carta("Ad"),new Carta("Kd"),
-            new Carta("3d"),new Carta("2d")
+            new Carta("5h"),new Carta("6h"),new Carta("7h"),
+            new Carta("8h"),new Carta("9h")
         };
         Mano m = new Mano(c); 
         System.out.println(m.toString());
-        System.out.println(m.esPareja());
+        if(m.calculaJugada())
+            System.out.println(m.verbose);
     }
     
 }
