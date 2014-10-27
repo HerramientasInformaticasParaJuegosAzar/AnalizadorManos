@@ -13,8 +13,8 @@ import analizadormanos.estructuraCartas.enums.Palos;
  * @author vjacynycz
  */
 public class Carta {
-    Numeros numero;
-    Palos palo;
+    private Numeros numero;
+    private Palos palo;
     
     
     /*
@@ -78,7 +78,7 @@ public class Carta {
             return Numeros.ocho;
         }else if(s.startsWith("9")){
             return Numeros.nueve;
-        }else if(s.startsWith("10")){
+        }else if(s.startsWith("T")){
             return Numeros.diez;
         }
         return null;
@@ -94,5 +94,13 @@ public class Carta {
         }else if(s.endsWith("s")){
             return Palos.picas;
         } return null;
+    }
+    
+    public Numeros getNumero(){
+        return this.numero;
+    }
+    
+    public Palos getPalo(){
+        return this.palo;
     }
 }

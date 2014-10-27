@@ -8,6 +8,7 @@ package analizadormanos;
 import analizadormanos.estructuraCartas.Carta;
 import analizadormanos.estructuraCartas.enums.Numeros;
 import analizadormanos.estructuraCartas.enums.Palos;
+import analizadormanos.estructuraManos.Mano;
 
 /**
  *
@@ -29,7 +30,13 @@ public class AnalizadorManos {
         Carta as = new Carta(Numeros.as,Palos.corazones); // as de corazones
         Carta rey = new Carta(Numeros.rey,Palos.corazones); //rey de corazones
         System.out.println(as.esMejorCarta(rey));
-        System.out.println((new Carta("Ad")).toString());
+        Carta[] c = new Carta[]{
+            new Carta("As"),new Carta("Ad"),new Carta("Kd"),
+            new Carta("3d"),new Carta("2d")
+        };
+        Mano m = new Mano(c); 
+        System.out.println(m.toString());
+        System.out.println(m.esPareja());
     }
     
 }
