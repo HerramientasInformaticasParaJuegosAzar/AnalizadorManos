@@ -10,7 +10,6 @@ package analizadormanos.estructuraCartas.enums;
  * @author vjacynycz
  */
 public enum Numeros {
-    
        dos,
        tres,
        cuatro,

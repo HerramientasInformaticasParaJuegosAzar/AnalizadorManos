@@ -5,10 +5,16 @@
  */
 package analizadormanos.parte1;
 
+import java.io.File;
+
 /**
  *
  * @author Vik
  */
 public class ParserParte1 {
+
+    static void parse(File entrada) {
+        
+    }
     
 }

@@ -13,7 +13,9 @@ import analizadormanos.estructuraCartas.enums.Palos;
  * @author vjacynycz
  */
 public class Carta {
+    
     private Numeros numero;
+    
     private Palos palo;
     
     

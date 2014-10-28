@@ -31,6 +31,8 @@ public class Mano {
 
     public String verbose = "No se ha calculado la jugada";
 
+    public ArrayList<Jugadas> draws = new ArrayList<Jugadas>();
+
     public Mano(Carta[] cartas) {
         this.checkMano();
         if (cartas.length == 5) {
@@ -86,12 +88,16 @@ public class Mano {
             if (i == 5) {
                 hayColor = true;
             }
+            if (i == 4) {
+                this.draws.add(Jugadas.color);
+            }
         }
-        if(!hayColor) return false;
-        else{
-            if(esEscalera()){
+        if (!hayColor) {
+            return false;
+        } else {
+            if (esEscalera()) {
                 this.jugada = Jugadas.escaleraDeColor;
-                this.verbose=this.verbose.replace("Escalera", "Escalera de Color");
+                this.verbose = this.verbose.replace("Escalera", "Escalera de Color");
                 return true;
             }
         }
@@ -125,7 +131,6 @@ public class Mano {
             }
             if (trio && pareja) {
                 this.jugada = Jugadas.fullHouse;
-                this.getKickers();
                 this.verbose = "FullHouse de " + this.cartasJugada[0]
                         + " y " + this.cartasJugada[1];
                 return true;
@@ -240,6 +245,44 @@ public class Mano {
     }
 
     private void checkMano() {
+
+    }
+
+    public int esMejorMano(Mano m) {
+        /*primero comparamos la jugada*/
+        int comparacion = this.jugada.compareTo(m.jugada);
         
+        /*si son iguales, pasamos a comprobar la carta de la jugada
+          Ej: en pareja de ases, el As está almacenado en cartasJugada[0]
+              en dobles parejas de As, Dieces el As esta en cartasJugada[0] 
+                                           y el Diez en cartasJugada[1]
+        */
+        
+        /*Ene el caso de que sean color, pasa directamente a los kickers*/
+        if (comparacion == 0) {
+            comparacion = this.cartasJugada[0].compareTo(m.cartasJugada[0]);
+            if (comparacion == 0) {
+                /*Si es trio o poker cartasJugada[1] = null así que pasamos a los kickers*/
+                if (this.cartasJugada[1]==null){
+                    comparacion = 0;
+                }
+    
+                else comparacion = this.cartasJugada[1].compareTo(m.cartasJugada[1]);
+                
+                if (comparacion == 0) {
+                    int i = 0;
+                    /*comprobamos los kickers de mayor a menor*/
+                    while(i<this.kickers.size()){
+                        comparacion = this.kickers.get(i).compareTo(
+                            m.kickers.get(i)
+                        );
+                        /*si alguno de los kickers no son iguales, gana el mayor*/
+                        if(comparacion != 0 ) return comparacion;
+                    }
+                }
+            }
+        }
+
+        return comparacion;
     }
 }

@@ -9,6 +9,8 @@ import analizadormanos.estructuraCartas.Carta;
 import analizadormanos.estructuraCartas.enums.Numeros;
 import analizadormanos.estructuraCartas.enums.Palos;
 import analizadormanos.estructuraManos.Mano;
+import analizadormanos.parte1.MainParte1;
+import analizadormanos.parte2.MainParte2;
 
 /**
  *
@@ -20,24 +22,28 @@ public class AnalizadorManos {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        for(int i = 1; i<=13;i++){
-            for(int j = 1; j <=4 ; j++){
-                
-                System.out.println((new Carta(i,j)).toString());
-            }
-        }
-        Carta as = new Carta(Numeros.as,Palos.corazones); // as de corazones
-        Carta rey = new Carta(Numeros.rey,Palos.corazones); //rey de corazones
-        System.out.println(as.esMejorCarta(rey));
-        Carta[] c = new Carta[]{
-            new Carta("5h"),new Carta("6h"),new Carta("7h"),
+
+        Mano m = new Mano(new Carta[]{
+            new Carta("6c"),new Carta("6h"),new Carta("6d"),
             new Carta("8h"),new Carta("9h")
-        };
-        Mano m = new Mano(c); 
-        System.out.println(m.toString());
+        }); 
+        
+        Mano m2 = new Mano(new Carta[]{
+            new Carta("6c"),new Carta("6h"),new Carta("6d"),
+            new Carta("Kh"),new Carta("9c")
+        }); 
+        
         if(m.calculaJugada())
             System.out.println(m.verbose);
+        if(m2.calculaJugada())
+            System.out.println(m2.verbose);
+         System.out.println(m.esMejorMano(m2));
+        if(args.length!=3) return;
+        if(args[0].equalsIgnoreCase("1")){
+            MainParte1.main(args);
+        } else  if(args[1].equalsIgnoreCase("1")){
+            MainParte2.main(args);
+        }
     }
     
 }
