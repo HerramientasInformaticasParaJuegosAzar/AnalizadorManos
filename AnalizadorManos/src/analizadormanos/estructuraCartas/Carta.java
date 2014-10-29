@@ -7,12 +7,13 @@ package analizadormanos.estructuraCartas;
 
 import analizadormanos.estructuraCartas.enums.Numeros;
 import analizadormanos.estructuraCartas.enums.Palos;
+import java.util.Objects;
 
 /**
  *
  * @author vjacynycz
  */
-public class Carta {
+public class Carta{
     
     private Numeros numero;
     
@@ -104,5 +105,19 @@ public class Carta {
     
     public Palos getPalo(){
         return this.palo;
+    }
+
+  
+    @Override
+    public boolean equals(Object o){
+        
+        if(this == o)
+            return true;
+        if(o == null)
+            return false;
+        if(!(o instanceof Carta))
+            return false;
+        final Carta other = (Carta) o;
+        return this.numero.equals(other.numero) && this.palo.equals(other.palo);
     }
 }
