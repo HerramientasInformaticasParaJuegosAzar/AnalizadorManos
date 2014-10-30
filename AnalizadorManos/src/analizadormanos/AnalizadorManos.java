@@ -22,7 +22,7 @@ public class AnalizadorManos {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
+        /*
         Mano m = new Mano(new Carta[]{
             new Carta("6c"),new Carta("6h"),new Carta("6d"),
             new Carta("8h"),new Carta("9h")
@@ -44,6 +44,7 @@ public class AnalizadorManos {
         } else  if(args[1].equalsIgnoreCase("1")){
             MainParte2.main(args);
         }
+                */
     }
     
 }
