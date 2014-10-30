@@ -164,9 +164,20 @@ public class Mano
          for (int i =0; i < arrayPalos.length; i++) 
         {
             if (arrayPalos[i] >= 5) {
+                arrayNums = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+                arrayPalos = new int[]{0, 0, 0, 0};
+                for(int k =0; k < cartas.size();k++){
+                    if (cartas.get(k).getPalo().ordinal() == i){
+                        arrayNums[cartas.get(k).getNumero().ordinal()]++;
+                        arrayPalos[cartas.get(k).getPalo().ordinal()]++;
+                    }
+                }
+                if(comprobado){
                 this.jugada = Jugadas.color;
-                this.verbose = "Color de " + this.cartasJugada[0]
-                        + " y " + this.cartasJugada[1];
+                this.getKickers();
+                this.cartasJugada[0] = this.kickers.get(0);
+                this.verbose = "Color al " + this.cartasJugada[0]+ " con kickers " + this.kickers.toString();
+                }
                 hayColor = true;
             }
             else if (i == 4 && comprobado) {
@@ -283,6 +294,12 @@ public class Mano
              {
                  case poker:
                      if (arrayNums[i] >= 1 && arrayNums[i] < 4 && contador < 1){
+                        this.kickers.add(Numeros.values()[i]);
+                        contador++;
+                     }
+                 break;
+                     case color:
+                     if (arrayNums[i] >= 1 && arrayNums[i] < 4 && contador < 5){
                         this.kickers.add(Numeros.values()[i]);
                         contador++;
                      }
