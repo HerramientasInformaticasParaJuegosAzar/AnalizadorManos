@@ -8,6 +8,7 @@ package analizadormanos.estructuraManos;
 import analizadormanos.estructuraCartas.Carta;
 import analizadormanos.estructuraCartas.enums.Numeros;
 import analizadormanos.estructuraManos.jugadas.Jugadas;
+import static analizadormanos.estructuraManos.jugadas.Jugadas.poker;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -17,7 +18,7 @@ import java.util.Arrays;
  */
 public class Mano {
 
-    private Carta[] cartas = new Carta[5];
+    private ArrayList<Carta> cartas = new ArrayList<>();
 
     private int[] arrayNums = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
@@ -32,21 +33,25 @@ public class Mano {
     public String verbose = "No se ha calculado la jugada";
 
     public ArrayList<Jugadas> draws = new ArrayList<Jugadas>();
+    
 
-    public Mano(Carta[] cartas) {
+    public Mano(ArrayList<Carta> cartas) 
+    {
         this.checkMano();
-        if (cartas.length == 5) {
+        if (cartas.size() > 2) // Me tienen que dar por lo menos 2 cartas. 
+        {
             this.cartas = cartas;
-            for (int i = 0; i < cartas.length; i++) {
-                arrayNums[cartas[i].getNumero().ordinal()]++;
-                arrayPalos[cartas[i].getPalo().ordinal()]++;
+            for (int i = 0; i < cartas.size(); i++) {
+                arrayNums[cartas.get(i).getNumero().ordinal()]++;
+                arrayPalos[cartas.get(i).getPalo().ordinal()]++;
             }
         } else {
             this.cartas = null;
         }
     }
 
-    public String toString() {
+    public String toString() 
+    {
         String s = "La mano es:\n";
         for (Carta carta : cartas) {
             s += carta.toString() + "\n";
@@ -56,57 +61,52 @@ public class Mano {
         return s;
     }
 
-    public boolean calculaJugada() {
+    public void calculaJugada() 
+    {
         if (this.esEscaleraDeColor()) {
-            return true;
+      
         } else if (this.esPoker()) {
-            return true;
+           
         } else if (this.esFullhouse()) {
-            return true;
+        
         } else if (this.esColor()) {
-            return true;
+          
         } else if (this.esEscalera()) {
-            return true;
+          
         } else if (this.esTrio()) {
-            return true;
+            
         } else if (this.esDoblePareja()) {
-            return true;
+           
         } else if (this.esPareja()) {
-            return true;
+            
         } else {
             this.jugada = Jugadas.highCard;
             getKickers();
             this.verbose = "Carta más alta con" + this.kickers.toString();
-            return true;
         }
 
     }
-
-    public boolean esEscaleraDeColor() {
-        boolean hayColor = false;
-        for (int i : arrayPalos) {
-            if (i == 5) {
-                hayColor = true;
-            }
-            if (i == 4) {
-                this.draws.add(Jugadas.color);
-            }
-        }
-        if (!hayColor) {
-            return false;
-        } else {
-            if (esEscalera()) {
+    // Modificado.
+    public boolean esEscaleraDeColor() 
+    {
+        boolean esEscaleraDeColor = false;
+        
+        if (esColor() && esEscalera()) 
+        {
                 this.jugada = Jugadas.escaleraDeColor;
                 this.verbose = this.verbose.replace("Escalera", "Escalera de Color");
-                return true;
-            }
-        }
-        return false;
+                esEscaleraDeColor = true;
+        } 
+     
+        return esEscaleraDeColor;
     }
-
-    public boolean esPoker() {
-        for (int i = arrayNums.length - 1; i >= 0; i--) {
-            if (arrayNums[i] >= 4) {
+    // Adaptado
+    public boolean esPoker() 
+    {
+        for (int i = arrayNums.length - 1; i >= 0; i--) 
+        {
+            if (arrayNums[i] >= 4) 
+            {
                 this.jugada = Jugadas.poker;
                 this.cartasJugada[0] = Numeros.values()[i];
                 this.getKickers();
@@ -117,19 +117,26 @@ public class Mano {
         }
         return false;
     }
-
-    public boolean esFullhouse() {
+    // Modificado
+    public boolean esFullhouse() 
+    {
         boolean pareja = false, trio = false;
-        for (int i = arrayNums.length - 1; i >= 0; i--) {
-            if ((arrayNums[i] == 2) && (!pareja)) {
-                pareja = true;
-                this.cartasJugada[1] = Numeros.values()[i];
-            }
-            if ((arrayNums[i] == 3) && (!pareja)) {
+        for (int i = arrayNums.length - 1; i >= 0; i--)
+        {
+            if ((arrayNums[i] == 3) && (!trio))
+            {
                 trio = true;
                 this.cartasJugada[0] = Numeros.values()[i];
             }
-            if (trio && pareja) {
+            
+            else if ((arrayNums[i] >= 2) && (!pareja)) 
+            {
+                pareja = true;
+                this.cartasJugada[1] = Numeros.values()[i];
+            }
+            
+            if (trio && pareja) 
+            {
                 this.jugada = Jugadas.fullHouse;
                 this.verbose = "FullHouse de " + this.cartasJugada[0]
                         + " y " + this.cartasJugada[1];
@@ -139,21 +146,29 @@ public class Mano {
         return false;
     }
 
-    public boolean esColor() {
-        for (int i : arrayPalos) {
-            if (i == 5) {
-                this.jugada = Jugadas.color;
-                this.getKickers();
-                this.verbose = "Color con kickers " + this.kickers.toString();
-                return true;
+    public boolean esColor() 
+    {
+        boolean hayColor = false;
+        
+         for (int i : arrayPalos) 
+        {
+            if (i >= 5) {
+                hayColor = true;
+            }
+            if (i == 4) {
+                this.draws.add(Jugadas.color);
             }
         }
-        return false;
+        return hayColor;
     }
 
-    public boolean esEscalera() {
+       // Modifcado para preflop + board
+    public boolean esEscalera() 
+    {
         int[] lowEscalera = {1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1};
-        if (Arrays.equals(lowEscalera, this.arrayNums)) {
+        
+        if (Arrays.equals(lowEscalera, this.arrayNums)) 
+        {
             this.jugada = Jugadas.escalera;
             this.cartasJugada[0] = Numeros.cinco;
             this.verbose = "Escalera de as a 5";
@@ -161,25 +176,33 @@ public class Mano {
         }
         int numLinked = 0;
         Numeros kicker = null;
-        for (int i = arrayNums.length - 1; i >= 1; i--) {
-            if (arrayNums[i] > 1) {
-                return false;
-            } else if ((arrayNums[i] == 1)) {
-                if (arrayNums[i - 1] == 1) {
-                    if (numLinked == 3) {
+        for (int i = arrayNums.length - 1; i >= 1; i--) 
+        {
+             if ((arrayNums[i] >= 1) && arrayNums[i] < 4) 
+             {
+                if (arrayNums[i - 1] >= 1 && arrayNums[i-1] < 4) 
+                {
+                    if (numLinked == 3) 
+                    {
                         this.jugada = Jugadas.escalera;
                         this.cartasJugada[0] = kicker;
                         this.cartasJugada[1] = Numeros.values()[i - 1];
                         this.verbose = "Escalera de " + this.cartasJugada[1]
                                 + " a " + this.cartasJugada[0];
                         return true;
-                    } else if (numLinked == 0) {
+                    } 
+                    else if (numLinked == 0) 
+                    {
                         kicker = Numeros.values()[i];
                         numLinked++;
-                    } else {
+                    } 
+                    else 
+                    {
                         numLinked++;
                     }
-                } else {
+                } 
+                else 
+                {
                     return false;
 
                 }
@@ -188,8 +211,10 @@ public class Mano {
         return false;
     }
 
-    public boolean esTrio() {
-        for (int i = arrayNums.length - 1; i >= 0; i--) {
+    public boolean esTrio() 
+    {
+        for (int i = arrayNums.length - 1; i >= 0; i--) 
+        {
             if (arrayNums[i] >= 3) {
                 this.jugada = Jugadas.trio;
                 this.cartasJugada[0] = Numeros.values()[i];
@@ -235,14 +260,41 @@ public class Mano {
         return false;
     }
 
-    private void getKickers() {
+    private void getKickers() 
+    {
+
+         for (int i = arrayNums.length - 1; i >= 0; i--) 
+         {
+             switch(this.jugada)
+             {
+                 case poker:
+                     if (arrayNums[i] >= 1 && arrayNums[i] < 4)
+                        this.kickers.add(Numeros.values()[i]); 
+                 break;
+                     
+                 case doblePareja:
+                     if (arrayNums[i] >= 1 && this.cartasJugada[1].ordinal() < Numeros.values()[i].ordinal())
+                         this.kickers.add(Numeros.values()[i]);
+                 break;
+                     
+                 default:
+                     if (arrayNums[i] == 1)
+                        this.kickers.add(Numeros.values()[i]); 
+                     break;
+                     
+                 
+             }
+         }
+         }
+        /*
         for (int i = arrayNums.length - 1; i >= 0; i--) {
-            if (arrayNums[i] == 1) {
+            if (arrayNums[i] >= 1) 
+            {
                 this.kickers.add(Numeros.values()[i]);
             }
         }
+        */
 
-    }
 
     private void checkMano() {
 
