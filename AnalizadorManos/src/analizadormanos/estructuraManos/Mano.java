@@ -201,12 +201,13 @@ public class Mano
         }
         int numLinked = 0;
         Numeros kicker = null;
-        for (int i = arrayNums.length - 1; i >= 1; i--) 
+        int aux = arrayNums.length-1;
+        for (int i = aux; i >= 1; i--) 
         {
-             if ((arrayNums[i] >= 1) && arrayNums[i] < 4) 
-             {
-                if (arrayNums[i - 1] >= 1 && arrayNums[i-1] < 4) 
-                {
+             if ((arrayNums[i] >= 1) && arrayNums[i] < 4){ 
+             
+                if (arrayNums[i - 1] >= 1 && arrayNums[i-1] < 4){
+                
                     if (numLinked == 3) 
                     {
                         this.jugada = Jugadas.escalera;
@@ -226,15 +227,12 @@ public class Mano
                         numLinked++;
                     }
                 } 
-                else 
-                {
-                    return false;
-
-                }
-            }
+             }
         }
-        return false;
+
+    return false;
     }
+    
 
     public boolean esTrio() 
     {
