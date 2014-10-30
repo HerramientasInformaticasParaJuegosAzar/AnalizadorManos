@@ -16,35 +16,13 @@ import java.util.Arrays;
  *
  * @author vjacynycz
  */
-public class Mano {
+public class Mano 
+{
 
     private ArrayList<Carta> cartas = new ArrayList<>();
 
     private int[] arrayNums = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-
-    public int[] getArrayNums() {
-        return arrayNums;
-    }
-
-    public int[] getArrayPalos() {
-        return arrayPalos;
-    }
-    public void listanumeros(){
-        System.out.print("[");
-        for(int i = 0; i < arrayNums.length;i++){
-            System.out.print(arrayNums[i]+",");
-        }
-        System.out.print("]");
-    }
     
-    public void listaPalos(){
-        System.out.print("[");
-        for(int i = 0; i < arrayPalos.length;i++){
-            System.out.print(arrayPalos[i]+",");
-        }
-        System.out.print("]");
-    }
-
     private int[] arrayPalos = new int[]{0, 0, 0, 0};
 
     private Jugadas jugada;
@@ -63,14 +41,23 @@ public class Mano {
         this.checkMano();
         if (cartas.size() > 2) // Me tienen que dar por lo menos 2 cartas. 
         {
+            rellenarArrayCartas(cartas);
+            }
+         else {
+            this.cartas = null;
+        }
+    }
+    
+    public void rellenarArrayCartas(ArrayList<Carta> cartas)
+    {
             this.cartas = cartas;
-            for (int i = 0; i < cartas.size(); i++) {
+            arrayNums = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+            arrayPalos = new int[]{0, 0, 0, 0};
+            for (int i = 0; i < cartas.size(); i++) 
+            {
                 arrayNums[cartas.get(i).getNumero().ordinal()]++;
                 arrayPalos[cartas.get(i).getPalo().ordinal()]++;
             }
-        } else {
-            this.cartas = null;
-        }
     }
 
     public String toString() 
@@ -381,4 +368,54 @@ public class Mano {
 
         return comparacion;
     }
+    
+    public int[] getArrayNums() {
+        return arrayNums;
+    }
+
+    public int[] getArrayPalos() {
+        return arrayPalos;
+    }
+    
+    public void listanumeros(){
+        System.out.print("[");
+        for(int i = 0; i < arrayNums.length;i++){
+            System.out.print(arrayNums[i]+",");
+        }
+        System.out.print("]");
+    }
+    
+    public void listaPalos(){
+        System.out.print("[");
+        for(int i = 0; i < arrayPalos.length;i++){
+            System.out.print(arrayPalos[i]+",");
+        }
+        System.out.print("]");
+    }
+
+    public ArrayList<Carta> getCartas() {
+        return cartas;
+    }
+
+    public Jugadas getJugada() {
+        return jugada;
+    }
+
+    public Numeros[] getCartasJugada() {
+        return cartasJugada;
+    }
+
+    public ArrayList<Numeros> getKickersList() {
+        return kickers;
+    }
+
+    public String getVerbose() {
+        return verbose;
+    }
+
+    public ArrayList<Jugadas> getDraws() {
+        return draws;
+    }
+    
+    
 }
