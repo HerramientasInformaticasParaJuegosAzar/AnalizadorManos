@@ -26,12 +26,12 @@ public class AnalizadorManos {
         
         ArrayList<Carta> cartas = new ArrayList<>();
         cartas.add(new Carta("8h"));
-        cartas.add(new Carta("8s"));
+        cartas.add(new Carta("9h"));
         cartas.add(new Carta("8c"));
-        cartas.add(new Carta("Kc"));
+        cartas.add(new Carta("9c"));
         cartas.add(new Carta("Th"));
         cartas.add(new Carta("Jh"));
-        cartas.add(new Carta("Qh"));
+        cartas.add(new Carta("Kh"));
         
         Mano m = new Mano(cartas);
         m.calculaJugada();
