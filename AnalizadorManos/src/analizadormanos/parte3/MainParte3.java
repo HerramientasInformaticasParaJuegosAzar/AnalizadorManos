@@ -29,6 +29,7 @@ public class MainParte3
         Mesa mesa = new Mesa(board);
         
         Carta cartasPropias[] = new Carta[2];
+        
         cartasPropias[0] = new Carta("As");
         cartasPropias[1] = new Carta("Kh");
         
