@@ -371,11 +371,11 @@ public class Mano
                     int i = 0;
                     /*comprobamos los kickers de mayor a menor*/
                     while(i<this.kickers.size()){
-                        comparacion = this.kickers.get(i).compareTo(
-                            m.kickers.get(i)
-                        );
+                        comparacion = this.kickers.get(i).compareTo(m.kickers.get(i));
                         /*si alguno de los kickers no son iguales, gana el mayor*/
                         if(comparacion != 0 ) return comparacion;
+                        else i++;
+                        
                     }
                 }
             }
