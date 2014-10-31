@@ -16,12 +16,13 @@ import java.util.Arrays;
  *
  * @author vjacynycz
  */
-public class Mano {
+public class Mano 
+{
 
     private ArrayList<Carta> cartas = new ArrayList<>();
 
     private int[] arrayNums = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-
+    
     private int[] arrayPalos = new int[]{0, 0, 0, 0};
 
     private Jugadas jugada;
@@ -40,14 +41,23 @@ public class Mano {
         this.checkMano();
         if (cartas.size() > 2) // Me tienen que dar por lo menos 2 cartas. 
         {
+            rellenarArrayCartas(cartas);
+            }
+         else {
+            this.cartas = null;
+        }
+    }
+    
+    public void rellenarArrayCartas(ArrayList<Carta> cartas)
+    {
             this.cartas = cartas;
-            for (int i = 0; i < cartas.size(); i++) {
+            arrayNums = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+            arrayPalos = new int[]{0, 0, 0, 0};
+            for (int i = 0; i < cartas.size(); i++) 
+            {
                 arrayNums[cartas.get(i).getNumero().ordinal()]++;
                 arrayPalos[cartas.get(i).getPalo().ordinal()]++;
             }
-        } else {
-            this.cartas = null;
-        }
     }
 
     public String toString() 
@@ -91,7 +101,7 @@ public class Mano {
     {
         boolean esEscaleraDeColor = false;
         
-        if (esColor() && esEscalera()) 
+        if (esColor(false) && esEscalera()) 
         {
                 this.jugada = Jugadas.escaleraDeColor;
                 this.verbose = this.verbose.replace("Escalera", "Escalera de Color");
@@ -145,17 +155,32 @@ public class Mano {
         }
         return false;
     }
-
-    public boolean esColor() 
+    //Falta comprobar para que las 5 sean del mismo pal para los kickers
+    
+    public boolean esColor(boolean comprobado) 
     {
         boolean hayColor = false;
         
-         for (int i : arrayPalos) 
+         for (int i =0; i < arrayPalos.length; i++) 
         {
-            if (i >= 5) {
+            if (arrayPalos[i] >= 5) {
+                arrayNums = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+                arrayPalos = new int[]{0, 0, 0, 0};
+                for(int k =0; k < cartas.size();k++){
+                    if (cartas.get(k).getPalo().ordinal() == i){
+                        arrayNums[cartas.get(k).getNumero().ordinal()]++;
+                        arrayPalos[cartas.get(k).getPalo().ordinal()]++;
+                    }
+                }
+                if(comprobado){
+                this.jugada = Jugadas.color;
+                this.getKickers();
+                this.cartasJugada[0] = this.kickers.get(0);
+                this.verbose = "Color al " + this.cartasJugada[0]+ " con kickers " + this.kickers.toString();
+                }
                 hayColor = true;
             }
-            if (i == 4) {
+            else if (i == 4 && comprobado) {
                 this.draws.add(Jugadas.color);
             }
         }
@@ -176,12 +201,13 @@ public class Mano {
         }
         int numLinked = 0;
         Numeros kicker = null;
-        for (int i = arrayNums.length - 1; i >= 1; i--) 
+        int aux = arrayNums.length-1;
+        for (int i = aux; i >= 1; i--) 
         {
-             if ((arrayNums[i] >= 1) && arrayNums[i] < 4) 
-             {
-                if (arrayNums[i - 1] >= 1 && arrayNums[i-1] < 4) 
-                {
+             if ((arrayNums[i] >= 1) && arrayNums[i] < 4){ 
+             
+                if (arrayNums[i - 1] >= 1 && arrayNums[i-1] < 4){
+                
                     if (numLinked == 3) 
                     {
                         this.jugada = Jugadas.escalera;
@@ -201,15 +227,12 @@ public class Mano {
                         numLinked++;
                     }
                 } 
-                else 
-                {
-                    return false;
-
-                }
-            }
+             }
         }
-        return false;
+
+    return false;
     }
+    
 
     public boolean esTrio() 
     {
@@ -234,7 +257,7 @@ public class Mano {
                 pareja = true;
                 this.cartasJugada[0] = Numeros.values()[i];
             } else if ((arrayNums[i] >= 2) && (pareja)) {
-                this.jugada = Jugadas.pareja;
+                this.jugada = Jugadas.doblePareja;
                 this.cartasJugada[1] = Numeros.values()[i];
                 this.getKickers();
                 this.verbose = "dobles parejas de " + this.cartasJugada[0]
@@ -262,20 +285,43 @@ public class Mano {
 
     private void getKickers() 
     {
-
+        int contador = 0;
          for (int i = arrayNums.length - 1; i >= 0; i--) 
          {
              switch(this.jugada)
              {
                  case poker:
-                     if (arrayNums[i] >= 1 && arrayNums[i] < 4)
-                        this.kickers.add(Numeros.values()[i]); 
+                     if (arrayNums[i] >= 1 && arrayNums[i] < 4 && contador < 1){
+                        this.kickers.add(Numeros.values()[i]);
+                        contador++;
+                     }
+                 break;
+                     case color:
+                     if (arrayNums[i] >= 1 && arrayNums[i] < 4 && contador < 5){
+                        this.kickers.add(Numeros.values()[i]);
+                        contador++;
+                     }
                  break;
                      
                  case doblePareja:
-                     if (arrayNums[i] >= 1 && this.cartasJugada[1].ordinal() < Numeros.values()[i].ordinal())
+                     if (arrayNums[i] >= 1 && this.cartasJugada[1].ordinal() < Numeros.values()[i].ordinal() && contador < 1){
                          this.kickers.add(Numeros.values()[i]);
-                 break;
+                          contador++;
+                     }
+                    break;
+                 
+                 case trio:
+                     if (arrayNums[i] == 1 && contador < 2){
+                        this.kickers.add(Numeros.values()[i]); 
+                        contador++;
+                     }
+                     break;
+                 case pareja:
+                     if (arrayNums[i] == 1 && contador < 3){
+                        this.kickers.add(Numeros.values()[i]); 
+                        contador++;
+                     }
+                     break;
                      
                  default:
                      if (arrayNums[i] == 1)
@@ -325,11 +371,11 @@ public class Mano {
                     int i = 0;
                     /*comprobamos los kickers de mayor a menor*/
                     while(i<this.kickers.size()){
-                        comparacion = this.kickers.get(i).compareTo(
-                            m.kickers.get(i)
-                        );
+                        comparacion = this.kickers.get(i).compareTo(m.kickers.get(i));
                         /*si alguno de los kickers no son iguales, gana el mayor*/
                         if(comparacion != 0 ) return comparacion;
+                        else i++;
+                        
                     }
                 }
             }
@@ -337,4 +383,54 @@ public class Mano {
 
         return comparacion;
     }
+    
+    public int[] getArrayNums() {
+        return arrayNums;
+    }
+
+    public int[] getArrayPalos() {
+        return arrayPalos;
+    }
+    
+    public void listanumeros(){
+        System.out.print("[");
+        for(int i = 0; i < arrayNums.length;i++){
+            System.out.print(arrayNums[i]+",");
+        }
+        System.out.print("]");
+    }
+    
+    public void listaPalos(){
+        System.out.print("[");
+        for(int i = 0; i < arrayPalos.length;i++){
+            System.out.print(arrayPalos[i]+",");
+        }
+        System.out.print("]");
+    }
+
+    public ArrayList<Carta> getCartas() {
+        return cartas;
+    }
+
+    public Jugadas getJugada() {
+        return jugada;
+    }
+
+    public Numeros[] getCartasJugada() {
+        return cartasJugada;
+    }
+
+    public ArrayList<Numeros> getKickersList() {
+        return kickers;
+    }
+
+    public String getVerbose() {
+        return verbose;
+    }
+
+    public ArrayList<Jugadas> getDraws() {
+        return draws;
+    }
+    
+    
 }

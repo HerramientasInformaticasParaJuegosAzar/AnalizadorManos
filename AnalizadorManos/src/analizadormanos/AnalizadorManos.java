@@ -11,6 +11,7 @@ import analizadormanos.estructuraCartas.enums.Palos;
 import analizadormanos.estructuraManos.Mano;
 import analizadormanos.parte1.MainParte1;
 import analizadormanos.parte2.MainParte2;
+import java.util.ArrayList;
 
 /**
  *
@@ -22,12 +23,22 @@ public class AnalizadorManos {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        /*
-        Mano m = new Mano(new Carta[]{
-            new Carta("6c"),new Carta("6h"),new Carta("6d"),
-            new Carta("8h"),new Carta("9h")
-        }); 
         
+        ArrayList<Carta> cartas = new ArrayList<>();
+        cartas.add(new Carta("8h"));
+        cartas.add(new Carta("9h"));
+        cartas.add(new Carta("8c"));
+        cartas.add(new Carta("9c"));
+        cartas.add(new Carta("Th"));
+        cartas.add(new Carta("Jh"));
+        cartas.add(new Carta("Kh"));
+        
+        Mano m = new Mano(cartas);
+        m.calculaJugada();
+        System.out.println(m.verbose);
+        m.listanumeros();
+        m.listaPalos();
+        /*
         Mano m2 = new Mano(new Carta[]{
             new Carta("6c"),new Carta("6h"),new Carta("6d"),
             new Carta("Kh"),new Carta("9c")
