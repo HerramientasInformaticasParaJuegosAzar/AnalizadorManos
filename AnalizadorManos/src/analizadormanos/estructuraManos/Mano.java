@@ -79,7 +79,7 @@ public class Mano
            
         } else if (this.esFullhouse()) {
         
-        } else if (this.esColor()) {
+        } else if (this.esColor(true)) {
           
         } else if (this.esEscalera()) {
           
