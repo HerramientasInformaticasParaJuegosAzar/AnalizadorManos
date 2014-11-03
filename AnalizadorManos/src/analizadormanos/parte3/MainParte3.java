@@ -7,49 +7,60 @@ package analizadormanos.parte3;
 
 import analizadormanos.Juego.Juego;
 import analizadormanos.estructuraCartas.Carta;
+import analizadormanos.estructuraManos.Mano;
 import analizadormanos.jugador.Jugador;
 import analizadormanos.mesa.Mesa;
+import analizadormanos.parte2.ParserParte2;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
  * @author Krnx
  */
-public class MainParte3 
-{
-    public static void main(String args[])
-    {
-        ArrayList<Carta> board = new ArrayList<>();
-        board.add(new Carta("Ah"));
-        board.add(new Carta("6c"));
-        board.add(new Carta("7s"));
-        board.add(new Carta("8s"));
-        board.add(new Carta("2d"));
+public class MainParte3 {
+
+    public static void main(String args[]) {
+        File entrada = null;
+        Scanner sc = null;
+
+        FileWriter salida = null;
+        PrintWriter pw = null;
+
+        ArrayList<Jugador> listaJugadores = null;
         
-        Mesa mesa = new Mesa(board);
-        
-        Carta cartasPropias[] = new Carta[2];
-        
-        cartasPropias[0] = new Carta("As");
-        cartasPropias[1] = new Carta("Kh");
-        
-        ArrayList<Jugador> listaJugadores = new ArrayList<>();
-        
-        listaJugadores.add(new Jugador(1,cartasPropias,mesa));
-        
-        cartasPropias[0] = new Carta("4d");
-        cartasPropias[1] = new Carta("5c");
-        
-        listaJugadores.add(new Jugador(2,cartasPropias,mesa));
-        
-        cartasPropias[0] = new Carta("5h");
-        cartasPropias[1] = new Carta("Ac");
-        
-        listaJugadores.add(new Jugador(3,cartasPropias,mesa));
-        
-        Juego juego = new Juego(listaJugadores);
-        juego.ordenarJugadores();
-        
+        try {
+
+            entrada = new File(args[1]);
+            sc = new Scanner(entrada);
+
+            salida = new FileWriter(args[2]);
+            pw = new PrintWriter(salida);
+
+            while (sc.hasNext()) {
+
+                listaJugadores = ParserParte3.parse(sc);
+                Juego juego = new Juego(listaJugadores);
+                juego.ordenarJugadores();
+            }
+        } catch (IOException e) {
+
+            System.out.println(e.getMessage());
+
+        } finally {
+            try {
+                if (salida != null) {
+                    salida.close();
+                }
+
+            } catch (IOException e2) {
+            }
+        }
+
         System.out.print("acabado");
     }
 }
