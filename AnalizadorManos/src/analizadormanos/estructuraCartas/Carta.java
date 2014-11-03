@@ -106,7 +106,6 @@ public class Carta{
     public Palos getPalo(){
         return this.palo;
     }
-
   
     @Override
     public boolean equals(Object o){
