@@ -1,0 +1,26 @@
+4;J1AhAc;J2JsJh;J37c8c;J44sKc;5dKs6cTh9h
+J2:La mano es: cinco de diamantes, rey de picas, seis de treboles, diez de corazones, nueve de corazones, jack de picas, jack de corazones, 
+- Mejor Jugada: pareja de jack con kickers [rey, diez, nueve]
+- Draw: escalera Gutshot
+J4:La mano es: cinco de diamantes, rey de picas, seis de treboles, diez de corazones, nueve de corazones, cuatro de picas, rey de treboles, 
+- Mejor Jugada: pareja de rey con kickers [diez, nueve, seis]
+- Draw: escalera
+J1:La mano es: cinco de diamantes, rey de picas, seis de treboles, diez de corazones, nueve de corazones, as de corazones, as de treboles, 
+- Mejor Jugada: pareja de as con kickers [rey, diez, nueve]
+- Draw: escalera
+J3:La mano es: cinco de diamantes, rey de picas, seis de treboles, diez de corazones, nueve de corazones, siete de treboles, ocho de treboles, 
+- Mejor Jugada: Escalera de seis a diez
+
+4;J1AhAc;J2JsJh;J37c8c;J44sKc;5dKs6cTh9h
+J2:La mano es: cinco de diamantes, rey de picas, seis de treboles, diez de corazones, nueve de corazones, jack de picas, jack de corazones, 
+- Mejor Jugada: pareja de jack con kickers [rey, diez, nueve]
+- Draw: escalera Gutshot
+J4:La mano es: cinco de diamantes, rey de picas, seis de treboles, diez de corazones, nueve de corazones, cuatro de picas, rey de treboles, 
+- Mejor Jugada: pareja de rey con kickers [diez, nueve, seis]
+- Draw: escalera
+J1:La mano es: cinco de diamantes, rey de picas, seis de treboles, diez de corazones, nueve de corazones, as de corazones, as de treboles, 
+- Mejor Jugada: pareja de as con kickers [rey, diez, nueve]
+- Draw: escalera
+J3:La mano es: cinco de diamantes, rey de picas, seis de treboles, diez de corazones, nueve de corazones, siete de treboles, ocho de treboles, 
+- Mejor Jugada: Escalera de seis a diez
+

@@ -32,7 +32,9 @@ public class Juego
         quickSort(this.listaJugadores,0,this.listaJugadores.size() - 1);
     }
     
-    
+    public ArrayList<Jugador> getJugadores(){
+        return this.listaJugadores;
+    }
     
     int partition(ArrayList<Jugador> arr, int left, int right)
     {

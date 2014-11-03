@@ -24,6 +24,8 @@ import java.util.Scanner;
  */
 public class MainParte3 {
 
+    private static String stringEntrada="";
+    
     public static void main(String args[]) {
         File entrada = null;
         Scanner sc = null;
@@ -42,10 +44,15 @@ public class MainParte3 {
             pw = new PrintWriter(salida);
 
             while (sc.hasNext()) {
-
-                listaJugadores = ParserParte3.parse(sc);
+                stringEntrada= sc.next();
+                listaJugadores = ParserParte3.parse(stringEntrada);
                 Juego juego = new Juego(listaJugadores);
                 juego.ordenarJugadores();
+                pw.println(stringEntrada);
+                for(Jugador j : juego.getJugadores()){
+                    pw.print(j.toString().trim()+"\n");
+                }
+                pw.println();
             }
         } catch (IOException e) {
 

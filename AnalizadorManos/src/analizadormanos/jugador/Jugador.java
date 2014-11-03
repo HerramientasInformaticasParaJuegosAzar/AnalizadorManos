@@ -96,7 +96,10 @@ public class Jugador
         return mano;
     }
     
-    
+    public String toString(){
+        return "J"+this.numeroJug+":"+
+                mano.verbose;
+    }
     
     
     

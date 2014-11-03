@@ -19,15 +19,13 @@ import java.util.Scanner;
 public class ParserParte3 {
     
     
-    public static ArrayList<Jugador> parse(Scanner sc)
+    public static ArrayList<Jugador> parse(String entrada)
         throws IOException{
         
         Carta cartas[] = new Carta[2];
         ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
         ArrayList<Carta> mesa = new ArrayList<Carta>();
         Mesa board = null;
-        
-        String entrada = sc.next();
         String[] entradaA = entrada.split(";");
         
         int j = Integer.parseInt(entradaA[0]);

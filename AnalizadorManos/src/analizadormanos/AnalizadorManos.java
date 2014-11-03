@@ -11,6 +11,7 @@ import analizadormanos.estructuraCartas.enums.Palos;
 import analizadormanos.estructuraManos.Mano;
 import analizadormanos.parte1.MainParte1;
 import analizadormanos.parte2.MainParte2;
+import analizadormanos.parte3.MainParte3;
 import java.util.ArrayList;
 
 /**
@@ -31,6 +32,8 @@ public class AnalizadorManos {
             MainParte1.main(args);
         } else if(args[0].equalsIgnoreCase("2")){
             MainParte2.main(args);
+        } else if(args[0].equalsIgnoreCase("3")){
+            MainParte3.main(args);
         }
              
     }
