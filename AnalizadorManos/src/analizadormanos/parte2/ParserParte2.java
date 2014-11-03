@@ -19,6 +19,8 @@ public class ParserParte2 {
     /*
     Dado un scanner lee en cada linea una jugada siguiendo el formato descrito en el enunciado de la practica.
     Si el archivo no cumple el formato adecuado, lanza una excepcion
+    Devuelve un arraylist de cartas: las dos primeras son las cartas de la mano del jugador y las demas (3, 4 o 5)
+    las de la mesa
     */
     public static ArrayList<Carta> parse(Scanner sc) 
             throws IOException{
