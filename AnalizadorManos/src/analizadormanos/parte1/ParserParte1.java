@@ -16,7 +16,11 @@ import java.util.Scanner;
  * @author Vik
  */
 public class ParserParte1 {
-
+    
+    /*
+    Dado un scanner, parsea la entrada y devuelve un arraylist con las cartas generadas.
+    Si el formato del archivo no coincide con el descrito en el enunciado de la practica, lanza una excepcion
+    */
     public static ArrayList<Carta> parse(Scanner sc) 
             throws IOException{
 
@@ -48,5 +52,4 @@ public class ParserParte1 {
 
         return cartas;
     }
-    
 }

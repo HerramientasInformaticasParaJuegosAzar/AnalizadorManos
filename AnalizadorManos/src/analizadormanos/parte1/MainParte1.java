@@ -8,7 +8,9 @@ package analizadormanos.parte1;
 import analizadormanos.estructuraCartas.Carta;
 import analizadormanos.estructuraManos.Mano;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,30 +21,47 @@ import java.util.Scanner;
  */
 public class MainParte1 {
 
-
+    
+    /*
+    Algoritmo de escritura en archivo basado en:
+    http://chuwiki.chuidiang.org/index.php?title=Lectura_y_Escritura_de_Ficheros_en_Java
+    */
     public static void main(String[] args){
     
         
-        File entrada = new File(args[1]);
-        File salida = new File(args[2]);
-        ArrayList<Carta> cartas = new ArrayList<Carta>();
+        File entrada = null;
+        Scanner sc = null;
         
+        FileWriter salida = null;
+        PrintWriter pw = null;
+        
+        ArrayList<Carta> cartas = new ArrayList<Carta>();
+        Mano m = null;
         
         try{
-            Scanner sc = new Scanner(entrada);
-
+            
+            entrada = new File(args[1]);
+            sc = new Scanner(entrada);
+            
+            salida = new FileWriter(args[2]);
+            pw = new PrintWriter(salida);
+            
             while(sc.hasNext()){
 
                 cartas = ParserParte1.parse(sc);
-                Mano m = new Mano(cartas);
+                m = new Mano(cartas);
                 m.calculaJugada();
-                System.out.println(m.verbose);
-                
+                pw.println(m.verbose);
             }
         }catch(IOException e){
             
             System.out.println(e.getMessage());
+        
+        } finally {
+            try{
+                if(salida != null) salida.close();
+                
+            } catch (IOException e2){}
         }
     }
-    
 }
