@@ -95,7 +95,7 @@ public class Mano {
         }
 
         escribeDraws();
-        this.verbose +=" ";
+        this.verbose += " ";
 
     }
 
@@ -179,9 +179,13 @@ public class Mano {
 
     // Modifcado para preflop + board
     public boolean esEscalera() {
-        int[] lowEscalera = {1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+        /*Primero comprobamos la escalera más baja*/
+        if (this.arrayNums[0] >= 1
+                && this.arrayNums[1] >= 1
+                && this.arrayNums[2] >= 1
+                && this.arrayNums[3] >= 1
+                && this.arrayNums[12] >= 1) {
 
-        if (Arrays.equals(lowEscalera, this.arrayNums)) {
             this.jugada = Jugadas.escalera;
             this.cartasJugada[0] = Numeros.cinco;
             this.verbose += "Escalera de as a 5";
@@ -435,14 +439,14 @@ public class Mano {
             for (Jugadas jugada : this.draws) {
                 if (this.jugada.compareTo(jugada) < 0) {
                     if (jugada == Jugadas.escalera && gutshot) {
-                        this.verbose += "- Draw: " + jugada + " Gutshot"+"\n";
+                        this.verbose += "- Draw: " + jugada + " Gutshot" + "\n";
                     } else {
-                        this.verbose += "- Draw: " + jugada +"\n";
+                        this.verbose += "- Draw: " + jugada + "\n";
                     }
                 }
             }
         }
-        
+
     }
 
 }
